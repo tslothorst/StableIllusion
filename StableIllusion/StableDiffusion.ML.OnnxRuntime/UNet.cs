@@ -74,22 +74,22 @@ namespace StableDiffusion.ML.OnnxRuntime
             // Preprocess text
             var textEmbeddings = TextProcessing.PreprocessText(prompt, config);
 
-                var scheduler = new LMSDiscreteScheduler();
-                //var scheduler = new EulerAncestralDiscreteScheduler();
-                var timesteps = scheduler.SetTimesteps(config.NumInferenceSteps);
-                //  If you use the same seed, you will get the same image result.
-                var seed = new Random().Next();
-                //var seed = 329922609;
+            var scheduler = new LMSDiscreteScheduler();
+            //var scheduler = new EulerAncestralDiscreteScheduler();
+            var timesteps = scheduler.SetTimesteps(config.NumInferenceSteps);
+            //  If you use the same seed, you will get the same image result.
+            var seed = new Random().Next();
+            //var seed = 329922609;
                 
-                // create latent tensor
+            // create latent tensor
 
-                var latents = GenerateLatentSample(config, seed, scheduler.InitNoiseSigma);
+            var latents = GenerateLatentSample(config, seed, scheduler.InitNoiseSigma);
 
-                var sessionOptions = config.GetSessionOptionsForEp();
-                // Create Inference Session
-                var unetSession = new InferenceSession(config.UnetOnnxPath, sessionOptions);
+            var sessionOptions = config.GetSessionOptionsForEp();
+            // Create Inference Session
+            var unetSession = new InferenceSession(config.UnetOnnxPath, sessionOptions);
 
-                var input = new List<NamedOnnxValue>();
+            var input = new List<NamedOnnxValue>();
                 for (int t = 0; t < timesteps.Length; t++)
                 {
                     // torch.cat([latents] * 2)
@@ -117,13 +117,13 @@ namespace StableDiffusion.ML.OnnxRuntime
 
                 }
 
-                // Scale and decode the image latents with vae.
-                // latents = 1 / 0.18215 * latents
-                latents = TensorHelper.MultipleTensorByFloat(latents.ToArray(), (1.0f / 0.18215f), latents.Dimensions.ToArray());
-                var decoderInput = new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("latent_sample", latents) };
+           // Scale and decode the image latents with vae.
+           // latents = 1 / 0.18215 * latents
+           latents = TensorHelper.MultipleTensorByFloat(latents.ToArray(), (1.0f / 0.18215f), latents.Dimensions.ToArray());
+           var decoderInput = new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("latent_sample", latents) };
 
-                // Decode image
-                var imageResultTensor = VaeDecoder.Decoder(decoderInput, config.VaeDecoderOnnxPath);
+           // Decode image
+           var imageResultTensor = VaeDecoder.Decoder(decoderInput, config.VaeDecoderOnnxPath);
 
             // TODO: Fix safety checker model
             //var isSafe = SafetyChecker.IsSafe(imageResultTensor);
@@ -131,6 +131,9 @@ namespace StableDiffusion.ML.OnnxRuntime
             ////if (isSafe == 1)
             //{ 
             var image = VaeDecoder.ConvertToBitmapImage(imageResultTensor, config);
+
+            unetSession.Dispose();
+
             return image;
             //}
 

@@ -44,10 +44,12 @@ namespace StableDiffusion.ML.OnnxRuntime
                     sessionOptions.AppendExecutionProvider_CPU();
                     return sessionOptions;
                 case ExecutionProvider.Cpu:
+                    sessionOptions.EnableMemoryPattern = false;
                     sessionOptions.AppendExecutionProvider_CPU();
                     return sessionOptions;
                 default:
                 case ExecutionProvider.Cuda:
+                    sessionOptions.EnableMemoryPattern = false;
                     sessionOptions.GraphOptimizationLevel = GraphOptimizationLevel.ORT_ENABLE_ALL;
                     //default to CUDA, fall back on CPU if CUDA is not available.
                     sessionOptions.AppendExecutionProvider_CUDA(this.DeviceId);

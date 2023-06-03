@@ -30,6 +30,7 @@ namespace StableDiffusion.ML.OnnxRuntime
             // Create session options for custom op of extensions
             var sessionOptions = new SessionOptions();
             sessionOptions.RegisterCustomOpLibraryV2(config.OrtExtensionsPath, out var libraryHandle);
+            sessionOptions.EnableMemoryPattern = false;
             
             // Create an InferenceSession from the onnx clip tokenizer.
             var tokenizeSession = new InferenceSession(config.TokenizerOnnxPath, sessionOptions);
@@ -52,6 +53,8 @@ namespace StableDiffusion.ML.OnnxRuntime
                 var pad = Enumerable.Repeat(49407, 77 - InputIdsInt.Length).ToArray();
                 InputIdsInt = InputIdsInt.Concat(pad).ToArray();
             }
+
+            tokenizeSession.Dispose();
 
             return InputIdsInt;
 
@@ -86,6 +89,8 @@ namespace StableDiffusion.ML.OnnxRuntime
 
             var lastHiddenState = (encoded.ToList().First().Value as IEnumerable<float>).ToArray();
             var lastHiddenStateTensor = TensorHelper.CreateTensor(lastHiddenState.ToArray(), new[] { 1, 77, 768 });
+
+            encodeSession.Dispose();
 
             return lastHiddenStateTensor;
 
