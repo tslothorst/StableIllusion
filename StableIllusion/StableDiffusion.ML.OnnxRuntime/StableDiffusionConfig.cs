@@ -40,16 +40,19 @@ namespace StableDiffusion.ML.OnnxRuntime
                 case ExecutionProvider.DirectML:
                     sessionOptions.GraphOptimizationLevel = GraphOptimizationLevel.ORT_ENABLE_ALL;
                     sessionOptions.EnableMemoryPattern = false;
+                    sessionOptions.EnableCpuMemArena = false;
                     sessionOptions.AppendExecutionProvider_DML(this.DeviceId);
                     sessionOptions.AppendExecutionProvider_CPU();
                     return sessionOptions;
                 case ExecutionProvider.Cpu:
                     sessionOptions.EnableMemoryPattern = false;
+                    sessionOptions.EnableCpuMemArena = false;
                     sessionOptions.AppendExecutionProvider_CPU();
                     return sessionOptions;
                 default:
                 case ExecutionProvider.Cuda:
                     sessionOptions.EnableMemoryPattern = false;
+                    sessionOptions.EnableCpuMemArena = false;
                     sessionOptions.GraphOptimizationLevel = GraphOptimizationLevel.ORT_ENABLE_ALL;
                     //default to CUDA, fall back on CPU if CUDA is not available.
                     sessionOptions.AppendExecutionProvider_CUDA(this.DeviceId);

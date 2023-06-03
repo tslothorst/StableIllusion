@@ -31,6 +31,7 @@ namespace StableDiffusion.ML.OnnxRuntime
             var sessionOptions = new SessionOptions();
             sessionOptions.RegisterCustomOpLibraryV2(config.OrtExtensionsPath, out var libraryHandle);
             sessionOptions.EnableMemoryPattern = false;
+            sessionOptions.EnableCpuMemArena = false;
             
             // Create an InferenceSession from the onnx clip tokenizer.
             var tokenizeSession = new InferenceSession(config.TokenizerOnnxPath, sessionOptions);

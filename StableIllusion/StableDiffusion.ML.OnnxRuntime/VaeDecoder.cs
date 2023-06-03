@@ -10,6 +10,7 @@ namespace StableDiffusion.ML.OnnxRuntime
         {
             var sessionOptions = new SessionOptions();
             sessionOptions.EnableMemoryPattern = false;
+            sessionOptions.EnableCpuMemArena = false;
             // Create an InferenceSession from the Model Path.
             var vaeDecodeSession = new InferenceSession(VaeDecoderOnnxPath, sessionOptions);
 
