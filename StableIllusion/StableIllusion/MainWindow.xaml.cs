@@ -30,6 +30,8 @@ namespace StableIllusion
             InitializeComponent();
         }
 
+        private Task ImageTask = null;
+
         private async void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -62,7 +64,7 @@ namespace StableIllusion
                     SafetyModelPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\safety_checker\model.onnx",
                 };
 
-                var imgResult = await Task.FromResult(UNet.Inference(strPositivePromptInput, config));
+                var imgResult = await Task.Run(()=> UNet.Inference(strPositivePromptInput, config));
 
                 if (imgResult == null) 
                 {
@@ -92,5 +94,6 @@ namespace StableIllusion
                 imgOutput.Source = null;                
             }
         }
+
     }
 }
