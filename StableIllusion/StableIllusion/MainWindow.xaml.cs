@@ -17,6 +17,7 @@ using StableIllusion.Extensions;
 using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace StableIllusion
 {
@@ -63,6 +64,14 @@ namespace StableIllusion
                     VaeDecoderOnnxPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\vae_decoder\model.onnx",
                     SafetyModelPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\safety_checker\model.onnx",
                 };
+
+                int.TryParse(cbInferenceSteps.Text, out config.NumInferenceSteps);
+                double.TryParse(cbGuidanceScale.Text, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out config.GuidanceScale);
+
+                if (cbExecutionProvider.Text == "CPU")
+                {
+                    config.ExecutionProviderTarget = StableDiffusionConfig.ExecutionProvider.Cpu;
+                }
 
                 var imgResult = await Task.Run(()=> UNet.Inference(strPositivePromptInput, config));
 

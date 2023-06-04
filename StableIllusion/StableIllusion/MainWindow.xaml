@@ -79,6 +79,44 @@
 
         <StackPanel
             Grid.Row="2"
+            Grid.Column="1"
+            Margin="0,5,0,0">
+
+            <Label>
+                Execution Provider:
+            </Label>
+            <ComboBox
+                Name="cbExecutionProvider">
+                <ComboBoxItem IsSelected="True">GPU</ComboBoxItem>
+                <ComboBoxItem>CPU</ComboBoxItem>
+            </ComboBox>
+
+            <Label>
+                Inference steps:
+            </Label>
+            <ComboBox
+                Name="cbInferenceSteps">
+                <ComboBoxItem IsSelected="True">15</ComboBoxItem>
+                <ComboBoxItem>20</ComboBoxItem>
+                <ComboBoxItem>25</ComboBoxItem>
+            </ComboBox>
+
+            <Label>
+                Guidance Scale:
+            </Label>
+            <ComboBox
+                Name="cbGuidanceScale">
+                <ComboBoxItem IsSelected="True">7.5</ComboBoxItem>
+                <ComboBoxItem>8.0</ComboBoxItem>
+                <ComboBoxItem>8.5</ComboBoxItem>
+                <ComboBoxItem>7.0</ComboBoxItem>
+                <ComboBoxItem>6.5</ComboBoxItem>
+            </ComboBox>
+            
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
             Grid.Column="0"
             Margin="0,5,0,0">
 
