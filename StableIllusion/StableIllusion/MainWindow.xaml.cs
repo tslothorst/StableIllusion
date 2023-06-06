@@ -104,5 +104,17 @@ namespace StableIllusion
             }
         }
 
+        private void btnCopyImageToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (imgOutput.Source != null)
+            {
+                Clipboard.SetImage(imgOutput.Source as BitmapImage);
+            }
+
+            if (!Clipboard.ContainsImage())
+            {
+                MessageBox.Show("The image could not be copied to clipboard", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.Yes);
+            }
+        }
     }
 }

@@ -74,6 +74,16 @@
                 Click="btnClearOutputImage_Click">
                 Clear Image
             </Button>
+
+            <Button
+                x:Name="btnCopyImageToClipboard"
+                Margin="0,5,0,0"
+                Background="AliceBlue"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Click="btnCopyImageToClipboard_Click">
+                Copy Image
+            </Button>
             
         </StackPanel>
 
