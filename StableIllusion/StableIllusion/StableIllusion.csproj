@@ -31,6 +31,18 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="OnnxModels\SafetyModel\Safety_Model_Goes_Here.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="OnnxModels\TextEncoderOnnx\TextEncoder_Model_Goes_Here.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="OnnxModels\UnetOnnx\Unet_Model_Goes_Here.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="OnnxModels\VaeDecoderOnnx\VaeDecoder_Model_Goes_Here.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
