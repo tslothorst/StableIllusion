@@ -18,6 +18,8 @@ using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Globalization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace StableIllusion
 {
@@ -26,8 +28,11 @@ namespace StableIllusion
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly AppSettings settings;
+
+        public MainWindow(IOptions<AppSettings> settings)
         {
+            this.settings = settings.Value;
             InitializeComponent();
         }
 
@@ -59,10 +64,10 @@ namespace StableIllusion
                     // Set GPU Device ID.
                     DeviceId = 0,
                     // Update paths to your models
-                    TextEncoderOnnxPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\text_encoder\model.onnx",
-                    UnetOnnxPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\unet\model.onnx",
-                    VaeDecoderOnnxPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\vae_decoder\model.onnx",
-                    SafetyModelPath = @"D:\Development\Github\StableDiffusion\StableDiffusion\safety_checker\model.onnx",
+                    TextEncoderOnnxPath = settings.TextEncoderOnnxPath,
+                    UnetOnnxPath = settings.UnetOnnxPath,
+                    VaeDecoderOnnxPath = settings.VaeDecoderOnnxPath,
+                    SafetyModelPath = settings.SafetyModelPath,
                 };
 
                 int.TryParse(cbInferenceSteps.Text, out config.NumInferenceSteps);
