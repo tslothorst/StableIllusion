@@ -1,0 +1,30 @@
+name: "Deploy Stable Illusion"
+
+on:
+  push:
+    tags:
+      - "stableillusion/v*"
+
+env:
+  PROJECT_PATH: StableIllusion/StableIllusion.sln
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Install .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: Restore packages
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      
+      - name: Build Application
+        run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+      
+      - name: Publish Application
+        run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --no-self-contained --runtime win-x64
