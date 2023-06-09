@@ -28,3 +28,18 @@ jobs:
       
       - name: Publish Application
         run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --no-self-contained --runtime win-x64
+      
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+      
+      - name: Upload
+        uses: csexton/release-asset-action@v2
+        with:
+          github-tokens: ${{ secrets.GITHUB_TOKEN }}
+          pattern: StableIllusion/bin/Release/net6.0-windows/*.*
+          release-url: ${{ steps.create_release.outputs.upload_url }}
