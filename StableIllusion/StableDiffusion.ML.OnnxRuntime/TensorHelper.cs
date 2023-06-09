@@ -2,7 +2,7 @@
 
 namespace StableDiffusion.ML.OnnxRuntime
 {
-    public class TensorHelper
+    public sealed class TensorHelper
     {
         public static DenseTensor<T> CreateTensor<T>(T[] data, int[] dimensions)
         {

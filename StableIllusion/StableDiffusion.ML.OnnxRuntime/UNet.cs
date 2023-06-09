@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace StableDiffusion.ML.OnnxRuntime
 {
-    public class UNet
+    public sealed class UNet
     {
         public static List<NamedOnnxValue> CreateUnetModelInput(Tensor<float> encoderHiddenStates, Tensor<float> sample, long timeStep)
         {

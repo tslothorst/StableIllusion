@@ -84,6 +84,16 @@
                 Click="btnCopyImageToClipboard_Click">
                 Copy Image
             </Button>
+
+            <Button
+                x:Name="btnSaveImageToDisk"
+                Margin="0,5,0,0"
+                Background="AliceBlue"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Click="btnSaveImageToDisk_Click">
+                Save Image
+            </Button>
             
         </StackPanel>
 

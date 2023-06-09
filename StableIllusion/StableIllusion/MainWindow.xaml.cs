@@ -6,6 +6,8 @@ using System.Windows.Media.Imaging;
 using StableIllusion.Extensions;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using Microsoft.Win32;
+using System.IO;
 
 namespace StableIllusion
 {
@@ -104,6 +106,31 @@ namespace StableIllusion
             {
                 MessageBox.Show("The image could not be copied to clipboard", "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.Yes);
             }
+        }
+
+        private void btnSaveImageToDisk_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog() { 
+                Title = "Save picture as ",
+                DefaultExt = "jpg",
+                AddExtension = true,
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp" 
+            };
+
+            if (imgOutput.Source != null)
+            {
+                if (save.ShowDialog() == true)
+                {
+                    JpegBitmapEncoder jpg = new JpegBitmapEncoder();
+                    jpg.Frames.Add(BitmapFrame.Create(imgOutput.Source as BitmapImage));
+
+                    using (Stream mem = File.Create(save.FileName))
+                    {
+                        jpg.Save(mem);
+                    }
+                }
+            }
+
         }
     }
 }

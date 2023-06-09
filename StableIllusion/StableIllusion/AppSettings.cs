@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StableIllusion
 {
-    public class AppSettings
+    public sealed class AppSettings
     {
         public string TextEncoderOnnxPath { get; set; }
         public string UnetOnnxPath { get; set; }

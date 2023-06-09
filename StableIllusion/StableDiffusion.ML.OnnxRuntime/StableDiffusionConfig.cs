@@ -2,7 +2,7 @@
 
 namespace StableDiffusion.ML.OnnxRuntime
 {
-    public class StableDiffusionConfig
+    public sealed class StableDiffusionConfig
     {
         
         public enum ExecutionProvider
@@ -61,12 +61,6 @@ namespace StableDiffusion.ML.OnnxRuntime
                     return sessionOptions;
 
             }
-
         }
-
-
-
     }
-
-
 }

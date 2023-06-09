@@ -4,7 +4,7 @@ using NumSharp;
 
 namespace StableDiffusion.ML.OnnxRuntime
 {
-    public class LMSDiscreteScheduler : SchedulerBase
+    public sealed class LMSDiscreteScheduler : SchedulerBase
     {
         private int _numTrainTimesteps;
         private string _predictionType;
