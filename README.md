@@ -23,7 +23,7 @@ Before you can get creative you need to prepare a few other things first.
 Use git with lfs support to clone the models from Hugging Face. 
 ```shell
 git lfs install
-git clone git https://huggingface.co/runwayml/stable-diffusion-v1-5 -b onnx
+git clone https://huggingface.co/runwayml/stable-diffusion-v1-5 -b onnx
 ```
 
 The app provides directories for you to move the models to afterwards. These named for the models to make it easy for you to put them in the right place.
